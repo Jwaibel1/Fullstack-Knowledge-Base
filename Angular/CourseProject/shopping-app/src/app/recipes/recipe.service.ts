@@ -8,7 +8,9 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
+  private recipes: Recipe[] = [];
+
+  /* private recipes: Recipe[] = [
     new Recipe(
       'Delicious Donuts',
       'Best Dessert, Glazed Donuts, Fight me!',
@@ -29,9 +31,14 @@ export class RecipeService {
         new Ingredient('Eggs', 20),
       ]
     ),
-  ];
+  ]; */
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
